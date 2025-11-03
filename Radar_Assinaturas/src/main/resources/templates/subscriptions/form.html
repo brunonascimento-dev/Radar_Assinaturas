@@ -8,7 +8,7 @@
 <body>
 <div class="container">
 <h1 th:text="${subscription.id} != null ? 'Editar Assinatura' : 'Nova Assinatura'">Nova Assinatura</h1>
-<form class="card" style="max-width:560px;" th:action="${subscription.id} != null ? @{/subscriptions/{id}(id=${subscription.id})} : @{/subscriptions}" th:object="${subscription}" method="post">
+<form class="card form-vertical" style="max-width:560px;" th:action="${subscription.id} != null ? @{/subscriptions/{id}(id=${subscription.id})} : @{/subscriptions}" th:object="${subscription}" method="post">
     <label>Nome
         <input type="text" th:field="*{name}" placeholder="Ex.: Netflix">
         <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>

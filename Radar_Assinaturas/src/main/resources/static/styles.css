@@ -7,6 +7,14 @@
 }
 * { box-sizing: border-box; }
 body { margin: 0; font-family: Inter, system-ui, Arial, sans-serif; color: var(--text); background: var(--bg); }
+.dashboard-gradient {
+  /* Gradient moderno e sutil para o dashboard */
+  background:
+    radial-gradient(900px circle at 10% 0%, rgba(10, 102, 194, 0.15), transparent 60%),
+    radial-gradient(700px circle at 90% -10%, rgba(164, 196, 255, 0.25), transparent 60%),
+    linear-gradient(180deg, #f7f9fc 0%, #eef2f7 100%);
+  background-attachment: fixed;
+}
 .container { max-width: 980px; margin: 24px auto; padding: 0 16px; }
 .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
 h1 { font-size: 1.6rem; margin: 0; }
@@ -28,3 +36,11 @@ tbody tr.soon td { border-bottom-color: #ffe082; }
 /* Badge genérico */
 .badge { display:inline-block; margin-left:8px; padding:2px 8px; font-size:.85rem; border-radius:999px; background:#eef2f7; color: var(--muted); border:1px solid var(--border); }
 .badge-warning { background:#fff0e6; color:#9c3d00; border-color:#ffd6ba; }
+
+/* Formulário vertical na página de Nova Assinatura */
+.form-vertical label { display: block; margin-bottom: 12px; }
+.form-vertical input[type="text"],
+.form-vertical input[type="number"],
+.form-vertical input[type="date"],
+.form-vertical select { width: 100%; }
+.form-vertical .actions { display: flex; gap: 8px; }
