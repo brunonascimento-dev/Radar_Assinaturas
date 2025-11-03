@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Assinaturas</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+      .container { max-width: 900px; margin: 0 auto; padding: 24px; }
+      .actions { display:flex; gap:12px; margin-bottom:16px; }
+      table { width:100%; border-collapse: collapse; }
+      th, td { border-bottom: 1px solid #ddd; padding: 8px; text-align: left; }
+      thead th { background: #f7f9fc; }
+      .btn { display:inline-block; padding:8px 12px; border-radius:6px; border:1px solid #ccc; text-decoration:none; color:#333; }
+      .btn-primary { background: var(--primary); color:#fff; border-color: var(--primary); }
+      .btn-danger { background: #d4380d; color:#fff; border-color: #d4380d; }
+    </style>
+    <!-- Reintrodução gradual de Thymeleaf: nome e ações com guardas -->
+</head>
+<body>
+<div class="container">
+    <h1>Assinaturas</h1>
+    <div class="actions">
+        <a class="btn btn-primary" th:href="@{/subscriptions/new}">Cadastrar Assinatura</a>
+        <a class="btn" th:href="@{/}">Voltar ao Dashboard</a>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Frequência</th>
+            <th>Categoria</th>
+            <th>Renovação</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${subscriptions} == null or ${#lists.isEmpty(subscriptions)}">
+            <td colspan="6">Nenhuma assinatura cadastrada.</td>
+        </tr>
+        <tr th:each="s : ${subscriptions}">
+            <td th:text="${s.name}">-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>
+                <a class="btn" th:if="${s.id} != null" th:href="@{/subscriptions/{id}/edit(id=${s.id})}">Editar</a>
+                <a class="btn btn-danger" th:if="${s.id} != null" th:href="@{/subscriptions/{id}/delete(id=${s.id})}">Excluir</a>
+                <span th:if="${s.id} == null">Salvar para habilitar ações</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

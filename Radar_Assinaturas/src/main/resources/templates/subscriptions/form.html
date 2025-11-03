@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Assinatura</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<div class="container">
+<h1 th:text="${subscription.id} != null ? 'Editar Assinatura' : 'Nova Assinatura'">Nova Assinatura</h1>
+<form class="card" style="max-width:560px;" th:action="${subscription.id} != null ? @{/subscriptions/{id}(id=${subscription.id})} : @{/subscriptions}" th:object="${subscription}" method="post">
+    <label>Nome
+        <input type="text" th:field="*{name}" placeholder="Ex.: Netflix">
+        <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    </label>
+    <label>Valor (R$)
+        <input type="number" step="0.01" th:field="*{price}" placeholder="Ex.: 39.90">
+        <div class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+    </label>
+    <label>Data de Renovação
+        <input type="date" th:field="*{renewalDate}">
+        <div class="error" th:if="${#fields.hasErrors('renewalDate')}" th:errors="*{renewalDate}"></div>
+    </label>
+    <label>Frequência
+        <select th:field="*{frequency}">
+            <option th:each="f : ${frequencies}" th:value="${f}" th:text="${f == T(com.radar.assinaturas.model.Frequency).MONTHLY ? 'Mensal' : 'Anual'}"></option>
+        </select>
+        <div class="error" th:if="${#fields.hasErrors('frequency')}" th:errors="*{frequency}"></div>
+    </label>
+    <label>Categoria
+        <select th:field="*{category}">
+            <option th:each="c : ${categories}" th:value="${c}"
+                    th:text="${c == T(com.radar.assinaturas.model.Category).STREAMING ? 'Streaming' :
+                             (c == T(com.radar.assinaturas.model.Category).MUSIC ? 'Música' :
+                             (c == T(com.radar.assinaturas.model.Category).SAAS ? 'SaaS' :
+                             (c == T(com.radar.assinaturas.model.Category).SECURITY ? 'Segurança' : 'Outros')))}"></option>
+        </select>
+        <div class="error" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
+    </label>
+    <div class="actions">
+        <button class="btn btn-primary" type="submit">Salvar</button>
+        <a class="btn" th:href="@{/subscriptions}">Cancelar</a>
+    </div>
+  </form>
+  </div>
+</body>
+</html>

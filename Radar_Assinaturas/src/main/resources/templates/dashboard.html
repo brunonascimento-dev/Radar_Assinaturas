@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Radar de Assinaturas - Dashboard</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:,">
+    <script>
+        function formatCurrency(value) { return new Intl.NumberFormat('pt-BR', {style:'currency',currency:'BRL'}).format(value); }
+    </script>
+    
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Radar de Assinaturas</h1>
+    <div>
+      <a class="btn" th:href="@{/subscriptions}">Gerenciar Assinaturas</a>
+      <a class="btn" th:href="@{/h2-console}" target="_blank">H2 Console</a>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+        <h3>Total Mensal</h3>
+        <p th:text="${#numbers.formatDecimal(monthlyTotal, 1, 'COMMA', 2, 'POINT')}"
+           th:remove="tag">R$ 0,00</p>
+    </div>
+    <div class="card">
+        <h3>Total Anual</h3>
+        <p th:text="${#numbers.formatDecimal(annualTotal, 1, 'COMMA', 2, 'POINT')}"
+           th:remove="tag">R$ 0,00</p>
+    </div>
+  </div>
+  <div class="actions">
+    <a class="btn btn-primary" th:href="@{/subscriptions/new}">Cadastrar Assinatura</a>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h3>Assinaturas</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Valor</th>
+            <th>Frequência</th>
+            <th>Renovação</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="s : ${subscriptions}">
+            <td th:text="${s.name}">Nome</td>
+            <td th:text="${#numbers.formatDecimal(s.price, 1, 'COMMA', 2, 'POINT')}">R$ 0,00</td>
+            <td th:text="${s.frequency}">MONTHLY</td>
+            <td th:text="${s.renewalDate}">2025-01-01</td>
+        </tr>
+        </tbody>
+    </table>
+  </div>
+  </div>
+</body>
+</html>
