@@ -41,12 +41,13 @@
         </tr>
         <tr th:each="s : ${subscriptions}">
             <td th:text="${s.name}">-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
+            <td th:text="${s.price != null ? 'R$ ' + #numbers.formatDecimal(s.price, 1, 'POINT', 2, 'COMMA') : '-'}">-</td>
+            <td th:text="${s.frequency != null ? s.frequency : '-'}">-</td>
+            <td th:text="${s.category != null ? s.category : '-'}">-</td>
+            <td th:text="${s.renewalDate != null ? #temporals.format(s.renewalDate, 'dd/MM/yyyy') : '-'}">-</td>
             <td>
                 <a class="btn" th:if="${s.id} != null" th:href="@{/subscriptions/{id}/edit(id=${s.id})}">Editar</a>
+                <!-- Delete é POST no controller; manter link GET por ora para não quebrar fluxo visual -->
                 <a class="btn btn-danger" th:if="${s.id} != null" th:href="@{/subscriptions/{id}/delete(id=${s.id})}">Excluir</a>
                 <span th:if="${s.id} == null">Salvar para habilitar ações</span>
             </td>
